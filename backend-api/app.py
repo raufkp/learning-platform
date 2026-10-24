@@ -80,6 +80,36 @@ def get_all_users():
 
 @app.route("/v1/testimonials", methods=["POST"])
 def create_testimonial():
+    """
+    Create a new testimonial.
+    ---
+    parameters:
+    -  name: author_name
+       in : path
+       type: string
+       required: true
+       description: "Name of the author"
+    -  name: content
+       in : path
+       type: string
+       required: true
+       description: "Content of the testimonial"
+    -  name: rating
+       in : path
+       type: integer
+       required: true
+       description: "Rating for the testimonial"
+    -  name: status
+       in : path
+       type: string
+       required: true
+       description: "Status of the testimonial"
+    responses:
+       201:     
+              description: "Testimonial created successfully"
+       500:
+              description: "Internal server error"
+"""
     data = request.get_json()
     print(data)  # here we are printing the data received in the request to the console. This is useful for debugging purposes and allows us to see what data is being sent to the server.
     # Process the testimonial data
@@ -100,7 +130,42 @@ def create_testimonial():
     return {"message": "Testimonial created successfully!"}, 201
 
 @app.route("/v1/courses", methods=["POST"])
-def create_course():
+def create_course(): 
+    """
+    Create a new course.
+    ---
+    parameters:
+    -  name: title
+       in : path
+       type: string
+       required: true
+       description: "Title of the course"
+    -  name: description
+       in : path
+       type: string    
+       required: true
+       description: "Description of the course"
+    -  name: category
+       in : path
+       type: string
+       required: true
+       description: "Category of the course"
+    -  name: level
+       in : path
+       type: string
+       required: true
+       description: "Level of the course"
+    -  name: status
+       in : path   
+       type: string
+       required: true  
+       description: "Status of the course"
+    responses:
+         201:     
+                  description: "Course created successfully"
+         500:
+                  description: "Internal server error"          
+"""
     data = request.get_json()
     print(data)
     title = data.get("title")
@@ -123,6 +188,46 @@ def create_course():
 
 @app.route("/v1/membershipplans", methods=["POST"])
 def create_membership_plan():
+    """
+    Create a new membership plan.
+    ---
+    parameters:
+    -  name: name
+       in : path
+       type: string
+       required: true
+       description: "Name of the membership plan"
+    -  name: description
+       in : path
+       type: string
+       required: true
+       description: "Description of the membership plan"
+    -  name: currency
+       in : path   
+       type: string
+       required: true
+       description: "Currency of the membership plan"
+    -  name: duration       
+       in : path
+       type: string
+       required: true
+       description: "Duration of the membership plan"
+    -  name: features
+       in : path
+       type: string
+       required: true
+       description: "Features of the membership plan"
+    -  name: status 
+       in : path
+       type: string
+       required: true
+       description: "Status of the membership plan"
+    responses:
+       201:   
+          description: "Membership plan created successfully"
+       500:            
+          description: "Internal server error"   
+"""
     data = request.get_json()
     print(data)
     name = data.get("name") 
@@ -144,8 +249,43 @@ def create_membership_plan():
             }
     return {"message": "Membership plan created successfully!"}, 201
 
-app.route("/v1/qa", methods=["POST"])
+@app.route("/v1/qa", methods=["PUT"])
 def create_qa():
+    """
+    Create a new Q&A entry.
+    --- 
+    parameters:
+    -  name: question
+       in : path
+       type: string
+       required: true
+       description: "Question for the Q&A entry"
+    -  name: answer
+       in : path
+       type: string
+       required: true
+       description: "Answer for the Q&A entry"
+    -  name: asked_by
+       in : path
+       type: string
+       required: true
+       description: "Person who asked the question"
+    -  name: answered_by
+       in : path
+       type: string
+       required: true
+       description: "Person who answered the question"
+    -  name: status 
+       in : path
+       type: string
+       required: true
+       description: "Status of the Q&A entry"
+    responses:
+       201: 
+          description: "Q&A entry created successfully"
+       500:
+          description: "Internal server error"
+"""
     data = request.get_json()
     print(data)
     question = data.get("question")
@@ -159,6 +299,8 @@ def create_qa():
         "id": uuid4().hex,
         "question": question,
         "answer": answer,
+        "asked_by": asked_by,
+        "answered_by": answered_by,
         "status": status
             }
     return {"message": "Q&A created successfully!"}, 201
