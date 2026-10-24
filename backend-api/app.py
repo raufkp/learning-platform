@@ -99,6 +99,69 @@ def create_testimonial():
             }
     return {"message": "Testimonial created successfully!"}, 201
 
+@app.route("/v1/courses", methods=["POST"])
+def create_course():
+    data = request.get_json()
+    print(data)
+    title = data.get("title")
+    description = data.get("description")
+    category = data.get("category")
+    level = data.get("level")
+    status = data.get("status")
+    created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    updated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    created_by = data.get("created_by")
+    database["courses"] = {
+        "id": uuid4().hex,
+        "title": title,
+        "description": description,
+        "category": category,
+        "level": level,
+        "status": status
+            }
+    return {"message": "Course created successfully!"}, 201
+
+@app.route("/v1/membershipplans", methods=["POST"])
+def create_membership_plan():
+    data = request.get_json()
+    print(data)
+    name = data.get("name") 
+    description = data.get("description")
+    currency = data.get("currency")
+    duration = data.get("duration")
+    features = data.get("features")
+    status = data.get("status")
+    created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    updated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    database["membershipplans"] = {
+        "id": uuid4().hex,
+        "name": name,
+        "description": description,
+        "currency": currency,
+        "duration": duration,
+        "features": features,
+        "status": status
+            }
+    return {"message": "Membership plan created successfully!"}, 201
+
+app.route("/v1/qa", methods=["POST"])
+def create_qa():
+    data = request.get_json()
+    print(data)
+    question = data.get("question")
+    answer = data.get("answer")
+    asked_by = data.get("asked_by")
+    answered_by = data.get("answered_by")
+    status = data.get("status")
+    created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    updated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    database["qa"] = {
+        "id": uuid4().hex,
+        "question": question,
+        "answer": answer,
+        "status": status
+            }
+    return {"message": "Q&A created successfully!"}, 201
 
 
 print(app.url_map)
